@@ -2,7 +2,6 @@
 
 @section('content')
     
-    <form>
         <div class="form-group row">
             <label for="search" class="col-sm-2 col-form-label">Search :</label>
             <div class="col">
@@ -14,12 +13,11 @@
             </div>
        
         </div>
-    </form>
+
 
     <section id="search-data">
         @include('inquiries.table')
     </section>
-
-    <div id="pagination">{{{ $inquiries->links() }}}</div>
+    
     
 @endsection

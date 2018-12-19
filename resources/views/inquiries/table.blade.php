@@ -18,3 +18,7 @@
     @endforeach
     </tbody>
 </table>
+
+<div id="pagination">
+    {{{ $inquiries->links() }}}
+</div>

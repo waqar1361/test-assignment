@@ -20,13 +20,21 @@ class InquiryController extends Controller {
      */
     public function index(inquiry $inquiry)
     {
-        $data = inquiry::latest()->paginate();
-        if (request('search'))
+        if (request('search') or request('page'))
+        {
             $data = $inquiry->search(request())
-                ->paginate()
+                ->paginate(10)
                 ->appends([
-                    'search'=>request()->search
+                    'search' => request()->search
                 ]);
+            
+            return response()->json([
+                'data' => view('inquiries.table')->with('inquiries', $data)->render()
+            ]);
+        }
+        
+        $data = inquiry::latest()->paginate(10);
+        
         return view('inquiries.index')->with('inquiries', $data);
     }
     
@@ -64,6 +72,7 @@ class InquiryController extends Controller {
      * @param  \App\inquiry $inquiry
      * @return \Illuminate\Http\Response
      */
+    
     public function show(inquiry $inquiry)
     {
         
